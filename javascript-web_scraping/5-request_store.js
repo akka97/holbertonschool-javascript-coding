@@ -1,7 +1,17 @@
 #!/usr/bin/node
-const fs = require("fs");
+const process = require('process');
+const request = require('request');
+const fs = require('fs');
+const api = process.argv[2];
+const filename = process.argv[3];
 
-fs.readFile(process.argv[2], 'utf-8', (err, data) => {
-    if (err) throw err;
-    console.log(data);
-})
+request(api, function (error, response, body) {
+  if (error) {
+    console.error('error:', error); // Print the error if one occurred
+  }
+  fs.writeFile(filename, body, 'utf-8', (error) => {
+    if (error) {
+      console.log(error);
+    }
+  });
+});
