@@ -7,7 +7,7 @@ axios.get(process.argv[2])
   .then(function (response) {
     response.data.results.forEach(element => {
       element.characters.forEach(movies => {
-	if (movies.include('18')) {
+	if (movies.includes('18')) {
 	  count++;
 	}
       });
@@ -16,4 +16,4 @@ axios.get(process.argv[2])
   })
   .catch(function (error) {
     console.log(error);
-});
+  });
