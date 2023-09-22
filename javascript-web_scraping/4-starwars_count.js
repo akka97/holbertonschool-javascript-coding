@@ -1,7 +1,19 @@
 #!/usr/bin/node
-const fs = require("fs");
 
-fs.readFile(process.argv[2], 'utf-8', (err, data) => {
-    if (err) throw err;
-    console.log(data);
-})
+const axios = require('axios');
+let count = 0;
+
+axios.get(process.argv[2])
+  .then(function (response) {
+    response.data.results.forEach(element => {
+      element.characters.forEach(movies => {
+	if (movies.include('18')) {
+	  count++;
+	}
+      });
+    });
+    console.log(count);
+  })
+  .catch(function (error) {
+    console.log(error);
+});
